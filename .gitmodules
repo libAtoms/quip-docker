@@ -1,3 +1,6 @@
+[submodule "base/JuLibAtoms"]
+	path = base/JuLibAtoms
+	url = https://github.com/libAtoms/JuLibAtoms
 [submodule "minimal/QUIP"]
 	path = minimal/QUIP
 	url = https://github.com/libAtoms/QUIP.git
