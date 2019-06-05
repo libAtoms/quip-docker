@@ -1,3 +1,8 @@
+.idea/
+
+minimal/GIT_VERSION
+minimal/GAP_VERSION
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
