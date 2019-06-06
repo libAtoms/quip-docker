@@ -1,5 +1,5 @@
 FROM jupyter/minimal-notebook:latest
-LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
+LABEL maintainer="Tamas K. Stenczel <tks32@cam.ac.uk>"
 
 #################################################################################
 ## OS level deps
@@ -20,56 +20,56 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 USER $NB_USER
 
-#################################################################################
-## Python 2.x environment
-#################################################################################
-# Misssing package: imolecule
-
-RUN conda init
-
-RUN . $CONDA_DIR/etc/profile.d/conda.sh \
- && conda  create --name python2  --quiet  --yes \
-    python=2.7 \
-    ipython \
-    ipykernel \
-    kernda \
-    numpy \
-    scipy \
-    scikit-learn \
-    matplotlib \
-    ase \
-    nglview \
-    pyamg \
-    sphinx \
-    spglib \
-    RISE \
-    pandas \
- && conda activate python2 \
- && conda remove --quiet --yes --force qt pyqt \
- && conda clean -tipsy \
- && fix-permissions $CONDA_DIR \
- && fix-permissions /home/$NB_USER
-
-WORKDIR /otp/matscipy
-COPY matscipy .
-
-# Fixing permission
-USER root
-RUN chown -R $NB_USER:$NB_GID $PWD
-USER $NB_USER
-
-RUN . $CONDA_DIR/etc/profile.d/conda.sh \
- && conda activate python2 \
- && pip install --no-cache-dir .
-
-WORKDIR $HOME
-
-# Create a global kernelspec in the image and modify it so that it properly activates
-# the python2 conda environment.
-USER root
-RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install \
- && $CONDA_DIR/envs/python2/bin/kernda -o -y /usr/local/share/jupyter/kernels/python2/kernel.json
-USER $NB_USER
+##################################################################################
+### Python 2.x environment
+##################################################################################
+## Misssing package: imolecule
+#
+#RUN conda init
+#
+#RUN . $CONDA_DIR/etc/profile.d/conda.sh \
+# && conda  create --name python2  --quiet  --yes \
+#    python=2.7 \
+#    ipython \
+#    ipykernel \
+#    kernda \
+#    numpy \
+#    scipy \
+#    scikit-learn \
+#    matplotlib \
+#    ase \
+#    nglview \
+#    pyamg \
+#    sphinx \
+#    spglib \
+#    RISE \
+#    pandas \
+# && conda activate python2 \
+# && conda remove --quiet --yes --force qt pyqt \
+# && conda clean -tipsy \
+# && fix-permissions $CONDA_DIR \
+# && fix-permissions /home/$NB_USER
+#
+#WORKDIR /otp/matscipy
+#COPY matscipy .
+#
+## Fixing permission
+#USER root
+#RUN chown -R $NB_USER:$NB_GID $PWD
+#USER $NB_USER
+#
+#RUN . $CONDA_DIR/etc/profile.d/conda.sh \
+# && conda activate python2 \
+# && pip install --no-cache-dir .
+#
+#WORKDIR $HOME
+#
+## Create a global kernelspec in the image and modify it so that it properly activates
+## the python2 conda environment.
+#USER root
+#RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install \
+# && $CONDA_DIR/envs/python2/bin/kernda -o -y /usr/local/share/jupyter/kernels/python2/kernel.json
+#USER $NB_USER
 
 #################################################################################
 ## Julia 1.1.x environment
@@ -78,10 +78,11 @@ USER $NB_USER
 
 # install Julia packages in /opt/julia instead of $HOME
 # PKG_DIR is now replaced with DEPOT_PATH
-# PyCall: use Python 2.7 with Julia
+# PyCall: use Python 3.7 with Julia
 ENV JULIA_VERSION=1.1.0
 ENV JULIA_DEPOT_PATH=/opt/julia
-ENV PYTHON=${CONDA_DIR}/envs/python2/bin/python
+ENV PYTHON=${CONDA_DIR}/bin/python
+#ENV PYTHON=${CONDA_DIR}/envs/python2/bin/python
 
 COPY JuLibAtoms/*.toml ${JULIA_DEPOT_PATH}/environments/v1.1/
 COPY JuLibAtoms/*.toml ${JULIA_DEPOT_PATH}/environments/JuLibAtoms/
