@@ -10,15 +10,24 @@
 [submodule "base/matscipy"]
 	path = base/matscipy
 	url = https://github.com/libAtoms/matscipy.git
-[submodule "base-py2/matscipy"]
-	path = base-py2/matscipy
+[submodule "base-jupyter-py2/matscipy"]
+	path = base-jupyter-py2/matscipy
 	url = https://github.com/libAtoms/matscipy.git
-[submodule "base-py2/JuLibAtoms"]
-	path = base-py2/JuLibAtoms
+[submodule "base-jupyter-py2/JuLibAtoms"]
+	path = base-jupyter-py2/JuLibAtoms
 	url = https://github.com/libAtoms/JuLibAtoms
 [submodule "minimal-py2/QUIP"]
 	path = minimal-py2/QUIP
 	url = https://github.com/libAtoms/QUIP.git
 [submodule "minimal-py2/GAP"]
 	path = minimal-py2/GAP
+	url = https://github.com/libAtoms/GAP.git
+[submodule "docker-quip-base"]
+	path = docker-quip-base
+	url = https://github.com/libAtoms/docker-quip-base.git
+[submodule "minimal-jupyter-py2/QUIP"]
+	path = minimal-jupyter-py2/QUIP
+	url = https://github.com/libAtoms/QUIP.git
+[submodule "minimal-jupyter-py2/GAP"]
+	path = minimal-jupyter-py2/GAP
 	url = https://github.com/libAtoms/GAP.git

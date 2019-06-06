@@ -32,8 +32,8 @@ RUN make > /dev/null 2>&1 \
 # Installs quippy using python2 environment
 RUN . $CONDA_DIR/etc/profile.d/conda.sh \
  && conda activate python2 \
- && make quippy \
- && make install-quippy
+ && make quippy > /dev/null 2>&1 \
+ && make install-quippy > /dev/null 2>&1
 
 #################################################################################
 ## Switch back to jovyan to avoid accidental container runs as root

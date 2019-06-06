@@ -1,43 +1,38 @@
-FROM libatomsquip/base:latest
+# Base Python image has most up to date Python parts
+FROM libatomsquip/base-py2
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
-#################################################################################
-##  QUIP + GAP + quippy
-#################################################################################
-
 # All the QUIPs go here; added to path in the end.
-WORKDIR /opt/quip
+ENV QUIP_ROOT /opt/quip
+ENV QUIP_INSTALLDIR=${QUIP_ROOT}/bin
+ENV PATH ${QUIP_INSTALLDIR}:${PATH}
 
-# QUIP for general use is the OpenMP version.
 ENV QUIP_ARCH linux_x86_64_gfortran_openmp
+ENV BUILD GAP
 
-ENV QUIP_INSTALLDIR /opt/quip/bin
-ENV PATH $QUIP_INSTALLDIR:$PATH
+WORKDIR ${QUIP_ROOT}
 
-COPY QUIP .
-COPY GAP src/GAP
-COPY Makefile.inc build/$QUIP_ARCH/
-COPY GIT_VERSION .
-COPY GAP_VERSION src/GAP/
+# To build within the image without additonal libraries use
+# the git+VANILLA version
+RUN git clone --depth 1 https://github.com/libAtoms/QUIP.git ${QUIP_ROOT}
 
-# Fixing permission
-USER root
-RUN chown -R $NB_USER:$NB_GID $PWD
-USER $NB_USER
+#ADD . ${QUIP_ROOT}
+ADD arch/${BUILD}_Makefile.${QUIP_ARCH}.inc build/${QUIP_ARCH}/Makefile.inc
 
-# Installs with no suffix, e.g. quip
-RUN make > /dev/null 2>&1 \
- && make install > /dev/null 2>&1
+RUN make > /dev/null \
+ && make install \
+ && make install-quippy > /dev/null
 
-# Installs quippy using python2 environment
-RUN . $CONDA_DIR/etc/profile.d/conda.sh \
- && conda activate python2 \
- && make quippy > /dev/null 2>&1 \
- && make install-quippy > /dev/null 2>&1
+# Launch in the home directory of the user
+WORKDIR /root/
+ADD files/demo.ipynb /root/
 
-#################################################################################
-## Switch back to jovyan to avoid accidental container runs as root
-#################################################################################
+# Public GAP image requires license agreement
+# Replace bash with a license check script
+RUN mkdir -p /bin/real/ \
+ && mv /bin/bash /bin/real/bash
 
-WORKDIR $HOME
-USER $NB_UID
+ADD docker/files/fakebash /bin/bash
+
+CMD bash -c exit && jupyter notebook --ip=$(hostname -i) --port=8899 --allow-root
+EXPOSE 8899
