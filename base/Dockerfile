@@ -102,7 +102,6 @@ RUN mkdir /etc/julia \
  && chown $NB_USER $JULIA_DEPOT_PATH \
  && fix-permissions $JULIA_DEPOT_PATH
 
-USER $NB_UID
 
 # Add Julia packages. This should download and build all packages.
 # Install IJulia as jovyan and then move the kernelspec out
@@ -112,7 +111,10 @@ RUN julia -e 'using Pkg; Pkg.instantiate()' \
  && mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernels/ \
  && chmod -R go+rx $CONDA_DIR/share/jupyter \
  && rm -rf $HOME/.local \
- && fix-permissions $JULIA_DEPOT_PATH $CONDA_DIR/share/jupyter
+ && fix-permissions $JULIA_DEPOT_PATH $CONDA_DIR/share/jupyter \
+ && chown -R $NB_USER $JULIA_DEPOT_PATH
+
+USER $NB_UID
 
 #################################################################################
 ## Switch back to jovyan to avoid accidental container runs as root
