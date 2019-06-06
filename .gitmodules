@@ -7,3 +7,6 @@
 [submodule "minimal/GAP"]
 	path = minimal/GAP
 	url = https://github.com/libAtoms/GAP.git
+[submodule "base/matscipy"]
+	path = base/matscipy
+	url = https://github.com/libAtoms/matscipy.git
