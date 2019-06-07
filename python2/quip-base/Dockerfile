@@ -97,6 +97,8 @@ ENV JULIA_PATH /opt/julia/v1.1.0
 ENV JULIA_DEPOT_PATH /opt/julia/share/site
 # Add to path as current version
 ENV PATH ${JULIA_PATH}/bin:$PATH
+# Use Python 2.7 with Julia
+ENV PYTHON /usr/local/bin/python
 
 RUN mkdir -p ${JULIA_PATH} \
  && cd ${JULIA_PATH} \
@@ -110,7 +112,7 @@ RUN mkdir -p ${JULIA_DEPOT_PATH}/environments \
  && mkdir v1.1  \
  && cp ./JuLibAtoms/*.toml ./v1.1 \
  # this should download and build all packages
- && ${JULIA_PATH}/bin/julia -e 'using Pkg; Pkg.instantiate()'
+ && ${JULIA_PATH}/bin/julia -e 'using Pkg; Pkg.instantiate(); Pkg.API.precompile()'
 
 # Relevant for Both Julia Environments:
 # Add kernelspecs to global Jupyter
