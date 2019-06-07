@@ -6,6 +6,12 @@ services:
 git:
   submodules: false
 
+stages:
+  - build quip-dummy
+  - build quip-base
+  - build quip-gap
+  - build quip
+
 jobs:
   include:
     - stage: build quip-dummy
@@ -18,5 +24,44 @@ jobs:
       deploy:
         provider: script
         script: docker push libatomsquip/quip-dummy-py2:latest
+        on:
+          branch: master
+
+    - stage: build quip-base
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull libatomsquip/quip-base-py2 || true
+      script:
+        - cd python2
+        - docker build -t libatomsquip/quip-base-py2:latest quip-base-py2
+      deploy:
+        provider: script
+        script: docker push libatomsquip/quip-base-py2:latest
+        on:
+          branch: master
+
+    - stage: build quip-gap
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull libatomsquip/quip-gap-py2 || true
+      script:
+        - cd python2
+        - docker build -t libatomsquip/quip-gap-py2:latest quip-gap-py2
+      deploy:
+        provider: script
+        script: docker push libatomsquip/quip-gap-py2:latest
+        on:
+          branch: master
+
+    - stage: build quip
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull libatomsquip/quip-py2 || true
+      script:
+        - cd python2
+        - docker build -t libatomsquip/quip-py2:latest quip-py2
+      deploy:
+        provider: script
+        script: docker push libatomsquip/quip-py2:latest
         on:
           branch: master
