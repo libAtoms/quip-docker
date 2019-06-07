@@ -11,12 +11,12 @@ stages:
   - build quip-gap
   - build quip
 
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
 jobs:
   include:
     - stage: build quip-base
-      before_install:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker pull libatomsquip/quip-base-py2 || true
       script:
         - docker build -t libatomsquip/quip-base-py2:latest python2/quip-base
       deploy:
@@ -26,9 +26,6 @@ jobs:
           branch: master
 
     - stage: build quip-gap
-      before_install:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker pull libatomsquip/quip-gap-py2 || true
       script:
         - docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN python2/quip-gap
       deploy:
@@ -38,9 +35,6 @@ jobs:
           branch: master
 
     - stage: build quip
-      before_install:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker pull libatomsquip/quip-py2 || true
       script:
         - docker build -t libatomsquip/quip-py2:latest python2/quip
       deploy:
