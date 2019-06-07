@@ -24,7 +24,7 @@ Base on Python 2 image with root access.
 ### Building minimal image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t --build-arg GITHUB_TOKEN=... libatomsquip/quip-gap-py2:latest quip-gap-py2
+   docker build -t libatomsquip/quip-minimal-py2:latest --build-arg GITHUB_TOKEN=... quip-minimal
    ```
 
 ### Building full image
