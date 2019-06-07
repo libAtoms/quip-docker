@@ -4,15 +4,15 @@ Base on Python 2 image with root access.
 
 ## Docker Stack
 
-- quip-base-py2: python:2 + linux packages + julia
+- quip-base-py2: python 2 + debian packages + julia
 - quip-gap-py2: QUIP + GAP
-- quip-py2: potentials + AtomEye + lammps + ambertool 
+- quip-py2: potentials + atomeye + lammps + ambertool 
 
 
 ## Building your own docker image
 0. Cloning the repository:
    ```bash
-   git clone --recursive https://github.com/fekad/project-water.git
+   git clone --recursive https://github.com/libAtoms/quip-docker.git
    git submodule update --init --recursive
    ```
 ### Building base image
@@ -24,7 +24,7 @@ Base on Python 2 image with root access.
 ### Building minimal image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-minimal-py2:latest --build-arg GITHUB_TOKEN=... quip-minimal
+   docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=... quip-gap
    ```
 
 ### Building full image

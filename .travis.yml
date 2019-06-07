@@ -46,7 +46,7 @@ jobs:
         - docker pull libatomsquip/quip-gap-py2 || true
       script:
         - cd python2
-        - docker build -t libatomsquip/quip-gap-py2:latest quip-gap-py2
+        - docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN quip-gap-py2
       deploy:
         provider: script
         script: docker push libatomsquip/quip-gap-py2:latest
