@@ -21,7 +21,7 @@ WORKDIR ${QUIP_ROOT}/src/AtomEye
 ENV PATH ${QUIP_ROOT}/src/AtomEye/bin:${PATH}
 
 RUN git clone --depth 1 https://github.com/jameskermode/AtomEye.git . \
- && make \
+ && make > /dev/null \
  && cd Python \
  && python setup.py install
 
@@ -69,9 +69,9 @@ RUN curl "http://ambermd.org/cgi-bin/AmberTools17-get.pl?Name=quipbot&Institutio
  && ./update_amber --update \
  && ./update_amber --show-applied-patches \
  && ./configure --with-python `which python` --python-install global -noX11 gnu \
- && make install \
+ && make install > /dev/null \
  && ./configure --with-python `which python` --python-install global -noX11 -mpi gnu \
- && make install \
+ && make install > /dev/null \
  && rm -rf ${AMBERHOME}/test ${AMBERHOME}/AmberTools
 
 
