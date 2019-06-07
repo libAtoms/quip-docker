@@ -4,9 +4,9 @@ Base on Python 2 image with root access.
 
 ## Docker Stack
 
-- quip-base: python:2 + linux packages + julia
-- quip-minimal: QUIP + GAP
-- quip-all: potentials + AtomEye + lammps + ambertool 
+- quip-base-py2: python:2 + linux packages + julia
+- quip-gap-py2: QUIP + GAP
+- quip-py2: potentials + AtomEye + lammps + ambertool 
 
 
 ## Building your own docker image
@@ -18,19 +18,19 @@ Base on Python 2 image with root access.
 ### Building base image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-base-py2:latest quip-base
+   docker build -t libatomsquip/quip-base-py2:latest quip-base-py2
    ```
 
 ### Building minimal image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t --build-arg GITHUB_TOKEN=... libatomsquip/quip-minimal-py2:latest quip-minimal
+   docker build -t --build-arg GITHUB_TOKEN=... libatomsquip/quip-gap-py2:latest quip-gap-py2
    ```
 
 ### Building full image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-all-py2:latest quip-all
+   docker build -t libatomsquip/quip-py2:latest quip-py2
    ```
 
 ## Using the docker image
@@ -40,7 +40,7 @@ Base on Python 2 image with root access.
    -p 8899:8899 \
    -v $PWD:/root \
    --name quip-py2 \
-   libatomsquip/quip-all-py2:latest 
+   libatomsquip/quip-py2:latest 
    ```
 
 

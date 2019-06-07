@@ -1,4 +1,4 @@
-FROM libatomsquip/quip-minimal-py2
+FROM libatomsquip/quip-gap-py2
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 #################################################################################
@@ -118,6 +118,13 @@ RUN wget https://wiki.fysik.dtu.dk/gpaw-files/gpaw-setups-0.9.20000.tar.gz -O - 
 #################################################################################
 
 WORKDIR /root/
+
+# Public GAP image requires license agreement
+# Replace bash with a license check script
+RUN mkdir -p /bin/real/ \
+ && mv /bin/bash /bin/real/bash
+
+ADD files/fakebash /bin/bash
 
 # Launch in the home directory of the user
 ADD files/demo.ipynb .

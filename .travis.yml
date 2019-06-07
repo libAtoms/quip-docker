@@ -1,13 +1,18 @@
-language: generic
-
-branches:
-  only:
-    - test_openblas
+language: minimal
 
 services:
   - docker
 
-before_install:
-  - docker build -t libatomsquip/quip-base .
-
-script: skip
+jobs:
+  include:
+    - stage: build quip-base
+      before_install:
+        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+        - docker pull libatomsquip/quip-dummy-py2
+      script:
+        - docker build -t libatomsquip/quip-dummy-py2:latest quip-dummy-py2
+      deploy:
+        provider: script
+        script: docker push libatomsquip/quip-dummy-py2:latest
+        on:
+          branch: master
