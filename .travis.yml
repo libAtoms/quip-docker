@@ -13,6 +13,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull libatomsquip/quip-dummy-py2 || true
       script:
+        - cd python2
         - docker build -t libatomsquip/quip-dummy-py2:latest quip-dummy-py2
       deploy:
         provider: script
