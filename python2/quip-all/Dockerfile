@@ -1,4 +1,4 @@
-FROM libatomsquip/minimal-py2
+FROM libatomsquip/quip-minimal-py2
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 #################################################################################
@@ -121,14 +121,3 @@ WORKDIR /root/
 
 # Launch in the home directory of the user
 ADD files/demo.ipynb .
-
-# Public GAP image requires license agreement
-# Replace bash with a license check script
-RUN mkdir -p /bin/real/ \
- && mv /bin/bash /bin/real/bash
-
-ADD files/fakebash /bin/bash
-
-CMD bash -c exit && jupyter notebook --ip=$(hostname -i) --port=8899 --allow-root
-
-EXPOSE 8899

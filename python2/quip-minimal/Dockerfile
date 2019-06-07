@@ -1,4 +1,4 @@
-FROM libatomsquip/base-py2
+FROM libatomsquip/quip-base-py2
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 ARG GITHUB_TOKEN
@@ -37,3 +37,21 @@ ADD Makefile.inc build/${QUIP_ARCH}/Makefile.inc
 RUN make > /dev/null \
  && make install \
  && make install-quippy > /dev/null
+
+
+#################################################################################
+## Entrypoint
+#################################################################################
+
+WORKDIR /root/
+
+# Public GAP image requires license agreement
+# Replace bash with a license check script
+RUN mkdir -p /bin/real/ \
+ && mv /bin/bash /bin/real/bash
+
+ADD files/fakebash /bin/bash
+
+CMD bash -c exit && jupyter notebook --ip=$(hostname -i) --port=8899 --allow-root
+
+EXPOSE 8899
