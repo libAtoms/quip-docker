@@ -47,8 +47,8 @@ RUN apt-get -y update \
 # NUM_THREADS must be set otherwise docker build non-parallel version.
 RUN git clone --depth 1 https://github.com/xianyi/OpenBLAS.git /tmp/OpenBLAS \
  && cd /tmp/OpenBLAS/ \
- && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 \
- && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 install \
+ && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 > /dev/null \
+ && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 install > /dev/null \
  && rm -rf /tmp/OpenBLAS
 
 # Make OpenBLAS the default

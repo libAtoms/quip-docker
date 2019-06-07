@@ -7,33 +7,18 @@ git:
   submodules: false
 
 stages:
-  - build quip-dummy
   - build quip-base
   - build quip-gap
   - build quip
 
 jobs:
   include:
-    - stage: build quip-dummy
-      before_install:
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker pull libatomsquip/quip-dummy-py2 || true
-      script:
-        - cd python2
-        - docker build -t libatomsquip/quip-dummy-py2:latest quip-dummy-py2
-      deploy:
-        provider: script
-        script: docker push libatomsquip/quip-dummy-py2:latest
-        on:
-          branch: master
-
     - stage: build quip-base
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull libatomsquip/quip-base-py2 || true
       script:
-        - cd python2
-        - docker build -t libatomsquip/quip-base-py2:latest quip-base-py2
+        - docker build -t libatomsquip/quip-base-py2:latest python2/quip-base
       deploy:
         provider: script
         script: docker push libatomsquip/quip-base-py2:latest
@@ -45,8 +30,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull libatomsquip/quip-gap-py2 || true
       script:
-        - cd python2
-        - docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN quip-gap-py2
+        - docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN python2/quip-gap
       deploy:
         provider: script
         script: docker push libatomsquip/quip-gap-py2:latest
@@ -58,8 +42,7 @@ jobs:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker pull libatomsquip/quip-py2 || true
       script:
-        - cd python2
-        - docker build -t libatomsquip/quip-py2:latest quip-py2
+        - docker build -t libatomsquip/quip-py2:latest python2/quip
       deploy:
         provider: script
         script: docker push libatomsquip/quip-py2:latest
