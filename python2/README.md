@@ -5,8 +5,8 @@ Base on Python 2 image with root access.
 ## Docker Stack
 
 - quip-base: python:2 + linux packages + julia
-- quip-minimal: QUIP + GAP
-- quip-all: potentials + AtomEye + lammps + ambertool 
+- quip-gap: QUIP + GAP
+- quip: potentials + AtomEye + lammps + ambertool 
 
 
 ## Building your own docker image
