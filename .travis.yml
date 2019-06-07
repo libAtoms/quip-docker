@@ -3,12 +3,15 @@ language: minimal
 services:
   - docker
 
+git:
+  submodules: false
+
 jobs:
   include:
-    - stage: build quip-base
+    - stage: build quip-dummy
       before_install:
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker pull libatomsquip/quip-dummy-py2
+        - docker pull libatomsquip/quip-dummy-py2 || true
       script:
         - docker build -t libatomsquip/quip-dummy-py2:latest quip-dummy-py2
       deploy:
