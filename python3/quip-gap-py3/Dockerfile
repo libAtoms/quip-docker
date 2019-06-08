@@ -1,5 +1,16 @@
-FROM libatomsquip/quip-base-py2
-LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
+# Mulit-stage build just to hide the
+FROM ubuntu as intermediate
+# ARG security: https://bit.ly/2oY3pCn
+
+# install git
+RUN apt-get update
+RUN apt-get install -y git
+
+ARG GITHUB_TOKEN
+RUN git clone --depth 1 https://${GITHUB_TOKEN}@github.com/libAtoms/GAP.git
+
+FROM libatomsquip/quip-base-py3
+LABEL maintainer="Tamas K. Stenczel <tks32@cam.ac.uk>"
 
 # All the QUIPs go here; added to path in the end.
 ENV QUIP_ROOT /opt/quip
@@ -8,8 +19,8 @@ ENV PATH ${QUIP_INSTALLDIR}:${PATH}
 
 WORKDIR /opt/quip
 
-RUN git clone --depth 1 --recursive https://github.com/libAtoms/QUIP.git .
-ADD GAP src/GAP
+RUN git clone --depth 1 --recursive --branch=py3 --single-branch https://github.com/libAtoms/QUIP.git .
+COPY --from=intermediate GAP src/GAP
 
 #################################################################################
 # Quip library for LAMMPS
