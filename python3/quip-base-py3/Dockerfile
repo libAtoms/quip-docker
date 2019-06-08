@@ -1,6 +1,6 @@
 # Base Python (debian) image
-FROM python:2
-LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
+FROM python:3
+LABEL maintainer="Tamas K. Stenczel <tks32@cam.ac.uk>"
 
 #################################################################################
 ## Root environment
@@ -61,7 +61,7 @@ RUN update-alternatives --install /usr/lib/libblas.so libblas.so /opt/OpenBLAS/l
  && ldconfig
 
 #################################################################################
-## Python environment
+## Python 3 environment
 #################################################################################
 
 # Put any Python libraries here
@@ -92,6 +92,7 @@ RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
 #################################################################################
 ## Julia v1.1.x
 #################################################################################
+# Julia will use python3 
 
 # specify paths for Julia 1.1
 ENV JULIA_PATH /opt/julia/v1.1.0
