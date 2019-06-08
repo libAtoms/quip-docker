@@ -10,3 +10,6 @@
 [submodule "jupyter-py2/quip-gap/QUIP"]
 	path = jupyter-py2/quip-gap/QUIP
 	url = https://github.com/libAtoms/QUIP.git
+[submodule "jupyter-py2/quip-gap/GAP"]
+	path = jupyter-py2/quip-gap/GAP
+	url = https://github.com/libAtoms/GAP.git

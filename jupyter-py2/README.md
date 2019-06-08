@@ -25,10 +25,10 @@
 
 ### Building minimal image
 1. Determine the proper version of QUIP and GAP:
-    ```bash
-    ./minimal/QUIP/bin/gitversion > minimal/GIT_VERSION
-    ./minimal/QUIP/bin/gapversion.sh > minimal/GAP_VERSION
-    ```
+   ```bash
+   ./jupyter-py2/quip-gap/QUIP/bin/gitversion > jupyter-py2/quip-gap/GIT_VERSION
+   ./jupyter-py2/quip-gap/QUIP/bin/gapversion > jupyter-py2/quip-gap/GAP_VERSION
+   ```
 2. Build the base image with the specific tags:
    ```bash
    docker build -t libatomsquip/quip-gap-jpy2:latest jupyter-py2/quip-gap

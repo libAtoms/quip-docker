@@ -1,4 +1,4 @@
-FROM libatomsquip/base:latest
+FROM libatomsquip/quip-base-jpy2:latest
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 #################################################################################
