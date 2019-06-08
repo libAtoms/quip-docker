@@ -6,17 +6,21 @@
 - minimal: QUIP + GAP
 - all: potentials + lammps + ambertool + AtomEye 
 
-
 ## Building your own docker image
 0. Cloning the repository:
    ```bash
-   git clone --recursive https://github.com/fekad/project-water.git
+   git clone --recursive https://github.com/libAtoms/quip-docker.git
+   ```
+   or
+   ```bash
+   git clone https://github.com/libAtoms/quip-docker.git
    git submodule update --init --recursive
    ```
+   
 ### Building base image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/base:latest base
+   docker build -t libatomsquip/quip-base-jpy2:latest jupyter-py2/quip-base
    ```
 
 ### Building minimal image
@@ -27,7 +31,7 @@
     ```
 2. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/minimal:latest minimal
+   docker build -t libatomsquip/quip-gap-jpy2:latest jupyter-py2/quip-gap
    ```
 
 ## Using the docker image

@@ -8,14 +8,6 @@ LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 USER root
 RUN apt-get update \
  && apt-get install -yq --no-install-recommends \
-    # Useful tools
-    curl \
-    vim \
-    emacs-nox \
-    less \
-    xterm \
-    bsdmainutils \
-    man-db \
     # AtomEye
     libxpm-dev \
     libgsl0-dev \

@@ -15,7 +15,14 @@ RUN apt-get update \
     libopenmpi-dev \
     netcdf-bin \
     libnetcdf-dev \
+    # Useful tools
     curl \
+    vim \
+    emacs-nox \
+    less \
+    xterm \
+    bsdmainutils \
+    man-db \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 USER $NB_USER
@@ -79,42 +86,40 @@ USER $NB_USER
 # install Julia packages in /opt/julia instead of $HOME
 # PKG_DIR is now replaced with DEPOT_PATH
 # PyCall: use Python 2.7 with Julia
-ENV JULIA_VERSION=1.1.0
+ENV JULIA_PATH /opt/julia-1.1.0
 ENV JULIA_DEPOT_PATH=/opt/julia
 ENV PYTHON=${CONDA_DIR}/envs/python2/bin/python
 
-COPY JuLibAtoms/*.toml ${JULIA_DEPOT_PATH}/environments/v1.1/
-COPY JuLibAtoms/*.toml ${JULIA_DEPOT_PATH}/environments/JuLibAtoms/
-
 USER root
 
-RUN mkdir /opt/julia-${JULIA_VERSION} \
- && cd /opt/julia-${JULIA_VERSION} \
+RUN mkdir ${JULIA_PATH} \
+ && cd ${JULIA_PATH} \
  && curl --location "https://julialang-s3.julialang.org/bin/linux/x64/1.1/julia-1.1.0-linux-x86_64.tar.gz" | tar xz --strip-components 1 \
- && chown -R $NB_USER /opt/julia-${JULIA_VERSION} \
- && ln -fs /opt/julia-${JULIA_VERSION}/bin/julia /usr/local/bin/julia
+ && chown -R $NB_USER ${JULIA_PATH} \
+ && ln -fs ${JULIA_PATH}/bin/julia /usr/local/bin/julia
 
 # Show Julia where conda libraries are \
 # Create JULIA_PKGDIR \
 RUN mkdir /etc/julia \
  && echo "push!(Libdl.DL_LOAD_PATH, \"$CONDA_DIR/envs/python2/lib\")" >> /etc/julia/juliarc.jl \
-# && mkdir $JULIA_DEPOT_PATH \
+ && mkdir $JULIA_DEPOT_PATH \
  && chown $NB_USER $JULIA_DEPOT_PATH \
  && fix-permissions $JULIA_DEPOT_PATH
 
+USER $NB_UID
+
+ADD --chown=1000 JuLibAtoms/*.toml ${JULIA_DEPOT_PATH}/environments/v1.1/
+ADD --chown=1000 JuLibAtoms/*.toml ${JULIA_DEPOT_PATH}/environments/JuLibAtoms/
 
 # Add Julia packages. This should download and build all packages.
 # Install IJulia as jovyan and then move the kernelspec out
 # to the system share location. Avoids problems with runtime UID change not
 # taking effect properly on the .local folder in the jovyan home dir.
-RUN julia -e 'using Pkg; Pkg.instantiate()' \
+RUN julia -e 'using Pkg; Pkg.instantiate(); Pkg.API.precompile()' \
  && mv $HOME/.local/share/jupyter/kernels/julia* $CONDA_DIR/share/jupyter/kernels/ \
  && chmod -R go+rx $CONDA_DIR/share/jupyter \
  && rm -rf $HOME/.local \
- && fix-permissions $JULIA_DEPOT_PATH $CONDA_DIR/share/jupyter \
- && chown -R $NB_USER $JULIA_DEPOT_PATH
-
-USER $NB_UID
+ && fix-permissions $JULIA_DEPOT_PATH $CONDA_DIR/share/jupyter
 
 #################################################################################
 ## Switch back to jovyan to avoid accidental container runs as root
