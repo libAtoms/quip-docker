@@ -1,16 +1,17 @@
-FROM libatomsquip/quip-gap-py2
-LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
+FROM libatomsquip/quip-gap-py3
+LABEL maintainer="Tamas K. Stenczel <tks32@cam.ac.uk>"
 
 #################################################################################
 ## Additional python packages
 #################################################################################
 
-# Slightly older, non dev version of GPAW
+# Latest release of GPAW
+# as recommended in documentation:
+# https://wiki.fysik.dtu.dk/gpaw/install.html
 
-RUN cd /opt \
- && wget https://files.pythonhosted.org/packages/source/g/gpaw/gpaw-1.4.0.tar.gz -O - | tar xz \
- && cd gpaw-1.4.0 \
- && pip install --no-cache-dir .
+RUN pip3 install --upgrade  gpaw
+
+# Atomistica
 
 RUN pip install --global-option=build_ext --global-option="-L/opt/OpenBLAS/lib" atomistica
 
@@ -68,10 +69,10 @@ RUN curl "http://ambermd.org/cgi-bin/AmberTools17-get.pl?Name=quipbot&Institutio
  && ./update_amber --show-applied-patches \
  && ./update_amber --update \
  && ./update_amber --show-applied-patches \
- && ./configure --with-python `which python` --python-install global -noX11 gnu \
- && make -j4 install > /dev/null \
-# && ./configure --with-python `which python` --python-install global -noX11 -mpi gnu \
+# && ./configure --with-python `which python` --python-install global -noX11 gnu \
 # && make -j4 install > /dev/null \
+ && ./configure --with-python `which python` --python-install global -noX11 -mpi gnu \
+ && make -j4 install > /dev/null \
  && rm -rf ${AMBERHOME}/test ${AMBERHOME}/AmberTools
 
 
