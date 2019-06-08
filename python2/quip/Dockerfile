@@ -68,10 +68,10 @@ RUN curl "http://ambermd.org/cgi-bin/AmberTools17-get.pl?Name=quipbot&Institutio
  && ./update_amber --show-applied-patches \
  && ./update_amber --update \
  && ./update_amber --show-applied-patches \
- && ./configure --with-python `which python` --python-install global -noX11 gnu \
- && make install > /dev/null \
+# && ./configure --with-python `which python` --python-install global -noX11 gnu \
+# && make -j4 install > /dev/null \
  && ./configure --with-python `which python` --python-install global -noX11 -mpi gnu \
- && make install > /dev/null \
+ && make -j4 install > /dev/null \
  && rm -rf ${AMBERHOME}/test ${AMBERHOME}/AmberTools
 
 

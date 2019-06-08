@@ -24,10 +24,10 @@ RUN apt-get -y update \
         libblas-dev \
         libnetcdf-dev \
         netcdf-bin \
-        curl \
         # using libzmq3-dev instead of libzmq3, this one works
         libzmq3-dev \
         # Useful tools
+        curl \
         vim \
         emacs-nox \
         less \
@@ -41,7 +41,9 @@ RUN apt-get -y update \
         csh \
         flex \
         # gpaw
-        libxc-dev
+        libxc-dev \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
 
 # Custom compilation of OpenBLAS with OpenMP enabled (linear algebra is limited to single core in debs)
 # NUM_THREADS must be set otherwise docker build non-parallel version.
