@@ -13,24 +13,24 @@ Base on Python 2 image with root access.
 0. Cloning the repository:
    ```bash
    git clone https://github.com/libAtoms/quip-docker.git
-   cd python2
    ```
 ### Building base image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-base-py2:latest quip-base
+   docker build -t libatomsquip/quip-base-py2:latest python2/quip-base
    ```
 
 ### Building minimal image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=... quip-gap
+   git clone --depth 1 https://github.com/libAtoms/GAP.git python2/quip-gap/GAP
+   docker build -t libatomsquip/quip-gap-py2:latest python2/quip-gap
    ```
 
 ### Building full image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-py2:latest quip
+   docker build -t libatomsquip/quip-py2:latest python2/quip
    ```
 
 ## Using the docker image
@@ -38,7 +38,6 @@ Base on Python 2 image with root access.
    ```bash
    docker run \
    -p 8899:8899 \
-   -v $PWD:/root \
    --name quip-py2 \
    libatomsquip/quip-py2:latest 
    ```

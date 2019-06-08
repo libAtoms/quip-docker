@@ -27,7 +27,8 @@ jobs:
 
     - stage: build quip-gap
       script:
-        - docker build -t libatomsquip/quip-gap-py2:latest --build-arg GITHUB_TOKEN=$GITHUB_TOKEN python2/quip-gap
+        - git clone --depth 1 https://${GITHUB_TOKEN}@github.com/libAtoms/GAP.git python2/quip-gap/GAP
+        - docker build -t libatomsquip/quip-gap-py2:latest python2/quip-gap
       deploy:
         provider: script
         script: docker push libatomsquip/quip-gap-py2:latest
