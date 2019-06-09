@@ -4,9 +4,6 @@
 [submodule "jupyter-py2/quip-base/JuLibAtoms"]
 	path = jupyter-py2/quip-base/JuLibAtoms
 	url = https://github.com/libAtoms/JuLibAtoms.git
-[submodule "docker-quip-base"]
-	path = docker-quip-base
-	url = https://github.com/libAtoms/docker-quip-base.git
 [submodule "jupyter-py2/quip-gap/QUIP"]
 	path = jupyter-py2/quip-gap/QUIP
 	url = https://github.com/libAtoms/QUIP.git
