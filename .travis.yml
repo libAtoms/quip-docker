@@ -16,30 +16,31 @@ before_install:
 
 jobs:
   include:
-    - stage: build quip-base
+    - stage: build quip-base-py3
       script:
-        - docker build -t libatomsquip/quip-base-py2:latest python2/quip-base
+        - docker build -t libatomsquip/quip-base-py3:latest python3/quip-base
       deploy:
         provider: script
-        script: docker push libatomsquip/quip-base-py2:latest
+        script: docker push libatomsquip/quip-base-py3:latest
         on:
-          branch: master
+          branch: init_py3
 
-    - stage: build quip-gap
+    - stage: build quip-gap-py3
       script:
-        - git clone --depth 1 https://${GITHUB_TOKEN}@github.com/libAtoms/GAP.git python2/quip-gap/GAP
-        - docker build -t libatomsquip/quip-gap-py2:latest python2/quip-gap
+        - git clone --depth 1 https://${GITHUB_TOKEN}@github.com/libAtoms/GAP.git python3/quip-gap/GAP
+        - docker build -t libatomsquip/quip-gap-py3:latest python3/quip-gap
       deploy:
         provider: script
-        script: docker push libatomsquip/quip-gap-py2:latest
+        script: docker push libatomsquip/quip-gap-py3:latest
         on:
-          branch: master
+          branch: init_py3
 
-    - stage: build quip
+    - stage: build quip-py3
       script:
-        - docker build -t libatomsquip/quip-py2:latest python2/quip
+        - docker build -t libatomsquip/quip-py3:latest python3/quip
       deploy:
         provider: script
-        script: docker push libatomsquip/quip-py2:latest
+        script: docker push libatomsquip/quip-py3:latest
         on:
-          branch: master
+          branch: init_py3
+
