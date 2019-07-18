@@ -18,28 +18,28 @@ jobs:
   include:
     - stage: build quip-base
       script:
-        - docker build -t libatomsquip/quip-base-py2:latest python2/quip-base
+        - docker build -t libatomsquip/quip-base:latest python2/quip-base
       deploy:
         provider: script
-        script: docker push libatomsquip/quip-base-py2:latest
+        script: docker push libatomsquip/quip-base:latest
         on:
           branch: master
 
     - stage: build quip-gap
       script:
         - git clone --depth 1 https://${GITHUB_TOKEN}@github.com/libAtoms/GAP.git python2/quip-gap/GAP
-        - docker build -t libatomsquip/quip-gap-py2:latest python2/quip-gap
+        - docker build -t libatomsquip/quip-gap:latest python2/quip-gap
       deploy:
         provider: script
-        script: docker push libatomsquip/quip-gap-py2:latest
+        script: docker push libatomsquip/quip-gap:latest
         on:
           branch: master
 
     - stage: build quip
       script:
-        - docker build -t libatomsquip/quip-py2:latest python2/quip
+        - docker build -t libatomsquip/quip:latest python2/quip
       deploy:
         provider: script
-        script: docker push libatomsquip/quip-py2:latest
+        script: docker push libatomsquip/quip:latest
         on:
           branch: master
