@@ -1,4 +1,4 @@
-FROM libatomsquip/quip-base-py2
+FROM libatomsquip/quip-base
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 # All the QUIPs go here; added to path in the end.
