@@ -1,4 +1,4 @@
-FROM libatomsquip/quip-gap-py2
+FROM libatomsquip/quip-gap
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 #################################################################################
