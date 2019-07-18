@@ -27,6 +27,7 @@ RUN apt-get -y update \
         # using libzmq3-dev instead of libzmq3, this one works
         libzmq3-dev \
         # Useful tools
+        pandoc \
         curl \
         vim \
         emacs-nox \
@@ -74,11 +75,15 @@ RUN pip install --upgrade pip \
         pyamg \
         imolecule \
         sphinx \
+        sphinx-rtd-theme \
+        nbsphinx \
+        numpydoc \
         spglib \
         nglview \
         RISE \
         pandas \
         ase \
+ && pip install 'nbconvert[execute]' 'ipython<6' \       
  && jupyter nbextension enable --py --sys-prefix widgetsnbextension \
  && jupyter nbextension enable --py --sys-prefix nglview \
  && jupyter-nbextension install rise --py --sys-prefix \
