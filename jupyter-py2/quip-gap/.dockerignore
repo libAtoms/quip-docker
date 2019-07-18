@@ -1,8 +1,0 @@
-.git
-.gitignore
-.gitmodules
-
-**/.git
-**/.gitignore
-**/.gitmodules
-**/.dockerignore
