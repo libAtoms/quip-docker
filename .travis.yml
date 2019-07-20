@@ -3,9 +3,6 @@ language: minimal
 services:
   - docker
 
-git:
-  submodules: false
-
 stages:
   - build quip-base
   - build quip-gap
@@ -26,8 +23,13 @@ jobs:
           branch: master
 
     - stage: build quip-gap
+      before_script:
+        - echo $github_deploy_key | base64 -d > ~/.ssh/github_deploy_key
+        - chmod 0600  ~/.ssh/github_deploy_key
+        - eval $(ssh-agent -s)
+        - ssh-add ~/.ssh/github_deploy_key
+        - git clone --depth 1 git@github.com:libAtoms/GAP.git python2/quip-gap/GAP
       script:
-        - git clone --depth 1 https://${GITHUB_TOKEN}@github.com/libAtoms/GAP.git python2/quip-gap/GAP
         - docker build -t libatomsquip/quip-gap:latest python2/quip-gap
       deploy:
         provider: script
