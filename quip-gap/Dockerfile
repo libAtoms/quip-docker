@@ -11,6 +11,7 @@ WORKDIR /opt/quip
 RUN git clone --depth 1 --recursive https://github.com/libAtoms/QUIP.git .
 ADD GAP src/GAP
 
+
 #################################################################################
 # Quip library for LAMMPS
 #################################################################################
@@ -24,6 +25,7 @@ ADD Makefile.inc build/${QUIP_ARCH}/Makefile.inc
 # Makefile.inc is also required to compile lammps.
 RUN make libquip > /dev/null \
  && find build/${QUIP_ARCH} -type f ! \( -name 'libquip.a' -o -name 'Makefile.inc' \) -delete
+
 
 #################################################################################
 # Quip with OpenMP

@@ -5,18 +5,13 @@ LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 ## Additional python packages
 #################################################################################
 
-# Latest release of GPAW
-# as recommended in documentation:
-# https://wiki.fysik.dtu.dk/gpaw/install.html
-
+# Latest release of GPAW (https://wiki.fysik.dtu.dk/gpaw/install.html)
 RUN pip3 install --upgrade  gpaw
 
 # Atomistica
-
 RUN pip install --global-option=build_ext --global-option="-L/opt/OpenBLAS/lib" atomistica
 
 # AtomEye needs to link with QUIP for xyz read-write
-
 WORKDIR ${QUIP_ROOT}/src/AtomEye
 
 ENV PATH ${QUIP_ROOT}/src/AtomEye/bin:${PATH}
@@ -31,7 +26,6 @@ RUN git clone --depth 1 https://github.com/jameskermode/AtomEye.git . \
 #################################################################################
 
 # LAMMPS compilation
-
 WORKDIR /opt/lammps
 
 ENV LAMMPS_PATH /opt/lammps
@@ -55,9 +49,7 @@ RUN cd src \
  && make -j4 mpi \
  && make clean-all
 
-
 # AmberTools (no Amber)
-
 WORKDIR /opt/amber16/
 
 ENV AMBERHOME /opt/amber16/
@@ -81,7 +73,6 @@ RUN curl "http://ambermd.org/cgi-bin/AmberTools17-get.pl?Name=quipbot&Institutio
 #################################################################################
 
 # Published GAPs
-
 WORKDIR /opt/share/potentials
 
 # Remote URLs do not get decompressed so pipe through tar
@@ -102,9 +93,7 @@ RUN wget -nv -O- "http://www.libatoms.org/pub/Home/TungstenGAP/GAP_6.tbz2" \
  && wget -nv -O- "http://www.libatoms.org/pub/Home/DataRepository/aC_GAP.tar.gz" \
     | tar xz -P --transform "s,^,${POTENTIALS_DIR}/GAP/Carbon/,"
 
-
 # GPAW data
-
 WORKDIR /opt/share/gpaw
 
 # Ensure we don't run interactively

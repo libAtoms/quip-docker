@@ -1,8 +1,6 @@
-# quip-docker
+#  QUIP docker stack
 
 Base on Python 2 image with root access.
-
-## Docker Stack
 
 - quip-base: python 2 + debian packages + julia
 - quip-gap: QUIP + GAP
@@ -17,28 +15,28 @@ Base on Python 2 image with root access.
 ### Building base image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-base-py2:latest python2/quip-base
+   docker build -t libatomsquip/quip-base:latest quip-base
    ```
 
 ### Building minimal image
 1. Build the base image with the specific tags:
    ```bash
-   git clone --depth 1 https://github.com/libAtoms/GAP.git python2/quip-gap/GAP
-   docker build -t libatomsquip/quip-gap-py2:latest python2/quip-gap
+   git clone --depth 1 https://github.com/libAtoms/GAP.git quip-gap/GAP
+   docker build -t libatomsquip/quip-gap:latest quip-gap
    ```
 
 ### Building full image
 1. Build the base image with the specific tags:
    ```bash
-   docker build -t libatomsquip/quip-py2:latest python2/quip
+   docker build -t libatomsquip/quip:latest quip
    ```
 
 ## Using the docker image
 1. Create a container:
    ```bash
-   docker run \
+   docker run -it \
    -p 8899:8899 \
-   --name quip-py2 \
-   libatomsquip/quip-py2:latest 
+   --name quip \
+   libatomsquip/quip:latest 
    ```
    

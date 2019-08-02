@@ -9,6 +9,7 @@ LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 RUN cp /etc/skel/.bash* /etc/skel/.profile /root/ \
  && echo "PS1='docker:\W$ '" >> /root/.bashrc
 
+
 #################################################################################
 ## OS level deps
 #################################################################################
@@ -92,6 +93,7 @@ RUN pip install --upgrade pip \
 RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
  && cd /opt/matscipy \
  && pip install --no-cache-dir .
+
 
 #################################################################################
 ## Julia v1.1.x
