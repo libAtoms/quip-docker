@@ -1,5 +1,7 @@
 #  QUIP docker stack
 
+[![](https://images.microbadger.com/badges/image/libatomsquip/quip.svg)](https://microbadger.com/images/libatomsquip/quip "quip")
+
 Base on Python 2 image with root access.
 
 - quip-base: python 2 + debian packages + julia
