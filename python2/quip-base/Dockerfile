@@ -1,5 +1,5 @@
 # Base Python (debian) image
-FROM python:2
+FROM python:3
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 #################################################################################
@@ -62,7 +62,7 @@ RUN update-alternatives --install /usr/lib/libblas.so libblas.so /opt/OpenBLAS/l
  && ldconfig
 
 #################################################################################
-## Python environment
+## Python 3 environment
 #################################################################################
 
 # Put any Python libraries here
@@ -82,8 +82,7 @@ RUN pip install --upgrade pip \
         nglview \
         RISE \
         pandas \
-        ase==3.17.0 \
- && pip install --no-cache-dir 'nbconvert[execute]' 'ipython<6' \       
+        ase \
  && jupyter nbextension enable --py --sys-prefix widgetsnbextension \
  && jupyter nbextension enable --py --sys-prefix nglview \
  && jupyter-nbextension install rise --py --sys-prefix \

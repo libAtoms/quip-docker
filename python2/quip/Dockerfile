@@ -5,12 +5,13 @@ LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 ## Additional python packages
 #################################################################################
 
-# Slightly older, non dev version of GPAW
+# Latest release of GPAW
+# as recommended in documentation:
+# https://wiki.fysik.dtu.dk/gpaw/install.html
 
-RUN cd /opt \
- && wget https://files.pythonhosted.org/packages/source/g/gpaw/gpaw-1.4.0.tar.gz -O - | tar xz \
- && cd gpaw-1.4.0 \
- && pip install --no-cache-dir .
+RUN pip3 install --upgrade  gpaw
+
+# Atomistica
 
 RUN pip install --global-option=build_ext --global-option="-L/opt/OpenBLAS/lib" atomistica
 
