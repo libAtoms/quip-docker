@@ -6,7 +6,7 @@ LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 #################################################################################
 
 # Latest release of GPAW (https://wiki.fysik.dtu.dk/gpaw/install.html)
-RUN pip3 install --upgrade  gpaw
+RUN pip install --upgrade  gpaw
 
 # Atomistica
 RUN pip install --global-option=build_ext --global-option="-L/opt/OpenBLAS/lib" atomistica
