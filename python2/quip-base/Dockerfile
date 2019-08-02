@@ -83,7 +83,7 @@ RUN pip install --upgrade pip \
         RISE \
         pandas \
         ase==3.17.0 \
- && pip install --no-cache-dir 'nbconvert[execute]' 'ipython<6' \       
+ && pip install --no-cache-dir 'nbconvert[execute]' 'ipython<6' \
  && jupyter nbextension enable --py --sys-prefix widgetsnbextension \
  && jupyter nbextension enable --py --sys-prefix nglview \
  && jupyter-nbextension install rise --py --sys-prefix \

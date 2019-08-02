@@ -8,7 +8,7 @@ ENV PATH ${QUIP_INSTALLDIR}:${PATH}
 
 WORKDIR /opt/quip
 
-RUN git clone --depth 1 --recursive https://github.com/libAtoms/QUIP.git .
+RUN git clone --depth 1 --recursive --single-branch --branch archived_py2 https://github.com/libAtoms/QUIP.git .
 ADD GAP src/GAP
 
 #################################################################################
