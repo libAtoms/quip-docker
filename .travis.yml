@@ -15,7 +15,7 @@ jobs:
   include:
     - stage: build quip-base
       script:
-        - docker build -t libatomsquip/quip-base:latest python2/quip-base
+        - docker build -t libatomsquip/quip-base:latest quip-base
       deploy:
         provider: script
         script: docker push libatomsquip/quip-base:latest
@@ -28,9 +28,9 @@ jobs:
         - chmod 0600  ~/.ssh/github_deploy_key
         - eval $(ssh-agent -s)
         - ssh-add ~/.ssh/github_deploy_key
-        - git clone --depth 1 git@github.com:libAtoms/GAP.git python2/quip-gap/GAP
+        - git clone --depth 1 git@github.com:libAtoms/GAP.git quip-gap/GAP
       script:
-        - docker build -t libatomsquip/quip-gap:latest python2/quip-gap
+        - docker build -t libatomsquip/quip-gap:latest quip-gap
       deploy:
         provider: script
         script: docker push libatomsquip/quip-gap:latest
@@ -39,7 +39,7 @@ jobs:
 
     - stage: build quip
       script:
-        - docker build -t libatomsquip/quip:latest python2/quip
+        - docker build -t libatomsquip/quip:latest quip
       deploy:
         provider: script
         script: docker push libatomsquip/quip:latest
