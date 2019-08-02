@@ -64,10 +64,14 @@ docker run -it -p 8899:8899 -v ~/Work/DockerHome:/root/ libatomsquip/quip
    made in a mounted volume!**
 
 This command will start the jupyter notebook server. One useful workflow is to
-stop this first container, and then restart it with ``docker container start <label>``, 
-after which shells can be opened into it with ``docker exec -it <label> bash``.  
+stop this first container, and then restart it with ``docker container start IMAGE``, 
+after which shells can be opened into it with ``docker exec -it IMAGE bash``.  
 
-You can get a list of available containers and their labels (even stopped ones) by typing ``docker container ls -a``. The hexademical labels can be replaced with the friendly names provided by docker, or even renamed to your own, e.g. ``docker container rename <label> quip`` after which you can refer to the container by use the ``quip`` label. 
+You can get a list of available containers and their labels (even stopped ones) 
+by typing ``docker container ls -a``. The hexademical labels can be replaced 
+with the friendly names provided by docker, or even renamed to your own, 
+e.g. ``docker container rename IMAGE quip`` after which you can refer to 
+the container by use the ``quip`` label. 
 
 If you'd prefer to use a shell in the image right away, just add ``bash`` to the very end
 of the first run command. 

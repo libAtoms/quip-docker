@@ -7,6 +7,7 @@ stages:
   - build quip-base
   - build quip-gap
   - build quip
+  - update readme
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -43,5 +44,13 @@ jobs:
       deploy:
         provider: script
         script: docker push libatomsquip/quip:latest
+        on:
+          branch: master
+
+    - stage: update readme
+      script: skip
+      deploy:
+        provider: script
+        script: bash travis/update-readme.sh
         on:
           branch: master
