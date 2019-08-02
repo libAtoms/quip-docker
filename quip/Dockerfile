@@ -49,24 +49,6 @@ RUN cd src \
  && make -j4 mpi \
  && make clean-all
 
-# AmberTools (no Amber)
-WORKDIR /opt/amber16/
-
-ENV AMBERHOME /opt/amber16/
-ENV PATH ${AMBERHOME}/bin:${PATH}
-
-# Never write the tests to disk (1GB) and remove src (500MB) after compilation
-RUN curl "http://ambermd.org/cgi-bin/AmberTools17-get.pl?Name=quipbot&Institution=NA&City=NA&State=NA&Country=NA&OS=linux-64" \
-    | tar xj --exclude='*/test/*' --strip-components 1 \
- && ./update_amber --show-applied-patches \
- && ./update_amber --update \
- && ./update_amber --show-applied-patches \
- && ./configure --with-python `which python` --python-install global -noX11 gnu \
- && make -j4 install > /dev/null \
-# && ./configure --with-python `which python` --python-install global -noX11 -mpi gnu \
-# && make -j4 install > /dev/null \
- && rm -rf ${AMBERHOME}/test ${AMBERHOME}/AmberTools
-
 
 #################################################################################
 ## Data
