@@ -45,5 +45,8 @@ RUN make \
 
 WORKDIR /root/
 
+# Set bash instead of sh as defualt terminal in Jupyter
+ENV SHELL /bin/bash
+
 CMD bash -c exit && jupyter notebook --ip=$(hostname -i) --port=8899 --allow-root
 EXPOSE 8899
