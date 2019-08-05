@@ -109,7 +109,7 @@ docker run --rm -it -e DISPLAY -v $HOME/.Xauthority:/root/.Xauthority --net=host
 Stack
 -----
 
-Images contain a full scientific stack that includes compilers, Python 2.7
+Images contain a full scientific stack that includes compilers, Python 3
 and Julia [base image](https://github.com/libAtoms/docker-quip-base).
 This image adds:
 
@@ -119,28 +119,13 @@ This image adds:
  - LAMMPS (MPI version) with QUIP integration and Python bindings
 
 
-Python 3
+Python 2
 --------
 
-A Python 3 virtual environment (virtualenv) is available with most of the
-same basic packages as Python 2. Note that ``quippy`` does not yet work
-with Python 3 and software like LAMMPS and AMBER are only compiled for
-Python 2 in the image.
-
-There are several ways to use Python 3:
-
- - The Jupyter notebook allows you to select the Python 3 kernel.
- - Type ``py3`` in a bash shell to activate the virtualenv (this is an
-   alias for ``source /opt/python3/bin/activate``, if the alias does
-   not work). In the virtualenv ``python`` and all the scripts will run
-   the Python 3 versions. Type ``deactivate`` to leave the virtualenv.
- - Directly call the binary ``/opt/python3/bin/python``. Any other
-   scripts in ``/opt/python3/bin/`` can also be called directly.
-
-Note: Running ``python3`` outside of the virtualenv will start the system
-python that has no packages installed. You must use the virtualenv or
-``/opt`` versions to get all the packages!
-
+The docker has now switched over the version 3 of python as of August 2019, when
+``quippy`` became fully Python 3 compatible. You can check out the last version
+of the docker based on Python 2 by using the ``py2`` tag. That version is fixed 
+and will not be updated. 
 
 Building the image yourself
 ---------------------------
