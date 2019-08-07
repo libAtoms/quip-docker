@@ -34,6 +34,8 @@ RUN make libquip > /dev/null \
 ENV QUIP_ARCH linux_x86_64_gfortran_openmp
 ADD Makefile.inc build/${QUIP_ARCH}/Makefile.inc
 
+RUN pip install -r quippy/requirements.txt
+
 RUN make \
  && make install \
  && make install-quippy 
