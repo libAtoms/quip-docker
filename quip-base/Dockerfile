@@ -1,5 +1,5 @@
 # Base Python (debian) image
-FROM python:3
+FROM python:3.6
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 #################################################################################
@@ -49,7 +49,7 @@ RUN apt-get -y update \
 
 # Custom compilation of OpenBLAS with OpenMP enabled (linear algebra is limited to single core in debs)
 # NUM_THREADS must be set otherwise docker build non-parallel version.
-RUN git clone --depth 1 https://github.com/xianyi/OpenBLAS.git /tmp/OpenBLAS \
+RUN git clone -b 'v0.3.7' --single-branch --depth 1 https://github.com/xianyi/OpenBLAS.git /tmp/OpenBLAS \
  && cd /tmp/OpenBLAS/ \
  && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 > /dev/null \
  && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 install > /dev/null \
@@ -71,6 +71,7 @@ RUN pip install --upgrade pip \
  && pip install --no-cache-dir \
         jupyter \
         numpy \
+        scipy \
         matplotlib \
         pyamg \
         imolecule \
