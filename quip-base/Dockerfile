@@ -71,7 +71,6 @@ RUN pip install --upgrade pip \
  && pip install --no-cache-dir \
         jupyter \
         numpy \
-        scipy \
         matplotlib \
         pyamg \
         imolecule \
