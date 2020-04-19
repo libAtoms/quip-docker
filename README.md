@@ -21,8 +21,8 @@ metals and semiconductors.
 Docker
 ------
 
- [libatomsquip/quip](https://hub.docker.com/r/libatomsquip/quip/)
-   [alternative](https://store.docker.com/community/images/libatomsquip/quip)
+ The [libatomsquip/quip](https://hub.docker.com/r/libatomsquip/quip/) image
+   ([alternative](https://store.docker.com/community/images/libatomsquip/quip))
    includes the base scientific stack and applications along with QUIP and
    quippy compiled with GAP support. Use of this image is restricted by a
    non-commercial licence agreement so a user must accept when starting
