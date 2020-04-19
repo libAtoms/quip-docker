@@ -21,9 +21,7 @@ metals and semiconductors.
 Docker
 ------
 
-We provide different end-user images:
-
- - [libatomsquip/quip](https://hub.docker.com/r/libatomsquip/quip/)
+ [libatomsquip/quip](https://hub.docker.com/r/libatomsquip/quip/)
    [alternative](https://store.docker.com/community/images/libatomsquip/quip)
    includes the base scientific stack and applications along with QUIP and
    quippy compiled with GAP support. Use of this image is restricted by a
