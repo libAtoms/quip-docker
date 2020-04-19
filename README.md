@@ -30,12 +30,7 @@ We provide different end-user images:
    non-commercial licence agreement so a user must accept when starting
    a container. The license terms are added to $HOME once accepted and can
    also be accessed on [GAP download page](http://www.libatoms.org/gap/gap_download.html).
- - [libatomsquip/quip-nogap](https://hub.docker.com/r/libatomsquip/quip-nogap/)
-   [alternative](https://store.docker.com/community/images/libatomsquip/quip-nogap)
-   which is a build of QUIP with all external code dependencies turned off.
-   This can be used without accepting the GAP license.
- - For access to the private image that includes additional third-party code,
-   please contact the developers.
+ 
 
 The default command runs a Jupyter notebook server that can be used from
 your browser. The images should download automatically when you ``docker run``
