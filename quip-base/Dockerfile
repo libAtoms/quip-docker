@@ -49,26 +49,19 @@ RUN apt-get -y update \
 
 # Custom compilation of OpenBLAS with OpenMP enabled (linear algebra is limited to single core in debs)
 # NUM_THREADS must be set otherwise docker build non-parallel version.
-#RUN git clone -b 'v0.3.7' --single-branch --depth 1 https://github.com/xianyi/OpenBLAS.git /tmp/OpenBLAS \
-# && cd /tmp/OpenBLAS/ \
-# && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 > /dev/null \
-# && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 install > /dev/null \
-# && rm -rf /tmp/OpenBLAS
+RUN git clone -b 'v0.3.9' --single-branch --depth 1 https://github.com/xianyi/OpenBLAS.git /tmp/OpenBLAS \
+ && cd /tmp/OpenBLAS/ \
+ && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 > /dev/null \
+ && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 install > /dev/null \
+ && rm -rf /tmp/OpenBLAS
 
 # Make OpenBLAS the default
-#RUN update-alternatives --install /usr/lib/libblas.so libblas.so /opt/OpenBLAS/lib/libopenblas.so 1000 \
-# && update-alternatives --install /usr/lib/libblas.so.3 libblas.so.3 /opt/OpenBLAS/lib/libopenblas.so 1000 \
-# && update-alternatives --install /usr/lib/liblapack.so liblapack.so /opt/OpenBLAS/lib/libopenblas.so 1000 \
-# && update-alternatives --install /usr/lib/liblapack.so.3 liblapack.so.3 /opt/OpenBLAS/lib/libopenblas.so 1000 \
-# && ldconfig
+RUN update-alternatives --install /usr/lib/libblas.so libblas.so /opt/OpenBLAS/lib/libopenblas.so 1000 \
+ && update-alternatives --install /usr/lib/libblas.so.3 libblas.so.3 /opt/OpenBLAS/lib/libopenblas.so 1000 \
+ && update-alternatives --install /usr/lib/liblapack.so liblapack.so /opt/OpenBLAS/lib/libopenblas.so 1000 \
+ && update-alternatives --install /usr/lib/liblapack.so.3 liblapack.so.3 /opt/OpenBLAS/lib/libopenblas.so 1000 \
+ && ldconfig
 
-###########################################################################################
-# OpenBLAS for Julia, so that we get around the 'illegal instruction' bug in openBLAS 0.3.5
-RUN mkdir /tmp/blas && \
-    curl -L -o /tmp/blas/blas.tar.gz "https://github.com/JuliaBinaryWrappers/OpenBLAS_jll.jl/releases/download/OpenBLAS-v0.3.9+2/OpenBLAS.v0.3.9.x86_64-linux-gnu-libgfortran4.tar.gz" && \
-    tar -C /tmp/blas -xzf /tmp/blas/blas.tar.gz && \
-    cp /tmp/blas/lib/libopenblas* ${JULIA_PATH}/lib/julia/ && \
-    rm -r /tmp/blas
 
 
 
@@ -122,6 +115,14 @@ ENV PATH ${JULIA_PATH}/bin:$PATH
 RUN mkdir -p ${JULIA_PATH} \
  && cd ${JULIA_PATH} \
  && curl --location "https://julialang-s3.julialang.org/bin/linux/x64/1.4/julia-1.4.1-linux-x86_64.tar.gz" | tar xz --strip-components 1
+
+###########################################################################################
+# OpenBLAS for Julia, so that we get around the 'illegal instruction' bug in openBLAS 0.3.5
+RUN mkdir /tmp/blas && \
+    curl -L -o /tmp/blas/blas.tar.gz "https://github.com/JuliaBinaryWrappers/OpenBLAS_jll.jl/releases/download/OpenBLAS-v0.3.9+2/OpenBLAS.v0.3.9.x86_64-linux-gnu-libgfortran4.tar.gz" && \
+    tar -C /tmp/blas -xzf /tmp/blas/blas.tar.gz && \
+    cp /tmp/blas/lib/libopenblas* ${JULIA_PATH}/lib/julia/ && \
+    rm -r /tmp/blas
 
 # clone the JuLipAtoms environment and copy it into v1.4 to make it the 
 # default environment loaded at startup
