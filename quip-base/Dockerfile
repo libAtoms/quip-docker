@@ -60,8 +60,8 @@ RUN git clone -b 'v0.3.9' --single-branch --depth 1 https://github.com/xianyi/Op
  && make NO_AFFINITY=1 USE_OPENMP=1 NUM_THREADS=32 install > /dev/null \
  && rm -rf /tmp/OpenBLAS
 
-RUN ln -s /opt/OpenBlas/lib/libopenblas.so /usr/local/lib/libopenblas.so
-RUN ln -s /opt/OpenBlas/lib/libopenblas.a /usr/local/lib/libopenblas.a
+RUN ln -s /opt/OpenBLAS/lib/libopenblas.so /usr/local/lib/libopenblas.so
+RUN ln -s /opt/OpenBLAS/lib/libopenblas.a /usr/local/lib/libopenblas.a
 
 # Make OpenBLAS the default
 #RUN update-alternatives --install /usr/lib/libblas.so libblas.so /opt/OpenBLAS/lib/libopenblas.so 1000 \
