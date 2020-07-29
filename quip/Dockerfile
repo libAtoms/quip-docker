@@ -10,7 +10,12 @@ RUN pip install --upgrade  gpaw
 
 # Atomistica
 #RUN pip install --global-option=build_ext --global-option="-L/opt/OpenBLAS/lib" atomistica
-RUN pip install --global-option=build_ext atomistica
+#RUN pip install --global-option=build_ext atomistica
+RUN ln -s /usr/lib/libopenblas.so.0 /usr/local/lib/libopenblas.so
+WORKDIR /opt
+RUN git clone --depth 1 https://github.com/Atomistica/atomistica.git \
+ && cd atomistica \
+ && python setup.py install
 
 # AtomEye needs to link with QUIP for xyz read-write
 WORKDIR ${QUIP_ROOT}/src/AtomEye
