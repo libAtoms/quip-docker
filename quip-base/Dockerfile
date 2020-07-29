@@ -2,6 +2,11 @@
 FROM python:3.7
 LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
+# make /bin/sh symlink to bash instead of dash:
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+ENV DEBIAN_FRONTEND noninteractive 
+RUN dpkg-reconfigure dash
+
 #################################################################################
 ## Root environment
 #################################################################################
