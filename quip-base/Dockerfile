@@ -123,21 +123,6 @@ RUN mkdir -p ${JULIA_PATH} \
  && cd ${JULIA_PATH} \
  && curl --location "https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.0-linux-x86_64.tar.gz" | tar xz --strip-components 1
 
-
-#RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("dev https://github.com/JuliaMolSim/NeighbourLists.jl.git")'
-#RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("dev https://github.com/JuliaMolSim/JuLIP.jl.git")'
-#RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("dev https://github.com/ACEsuit/ACE.jl.git"); using ACE'
-#RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("dev https://github.com/JuliaMolSim/ASE.jl.git"); using ASE'
-#RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("dev https://github.com/ACEsuit/IPFitting.jl.git"); using IPFitting'
-
-###########################################################################################
-# OpenBLAS for Julia, so that we get around the 'illegal instruction' bug in openBLAS 0.3.5
-# RUN mkdir /tmp/blas && \
-#    curl -L -o /tmp/blas/blas.tar.gz "https://github.com/JuliaBinaryWrappers/OpenBLAS_jll.jl/releases/download/OpenBLAS-v0.3.9+2/OpenBLAS.v0.3.9.x86_64-linux-gnu-libgfortran4.tar.gz" && \
-#    tar -C /tmp/blas -xzf /tmp/blas/blas.tar.gz && \
-#    cp /tmp/blas/lib/libopenblas* ${JULIA_PATH}/lib/julia/ && \
-#    rm -r /tmp/blas
-
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaMolSim/MolSim.git")'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaRegistries/General.git")'
 
