@@ -4,7 +4,7 @@ LABEL maintainer="Gabor Csanyi <gc121@cam.ac.uk>"
 
 # make /bin/sh symlink to bash instead of dash:
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
-ENV DEBIAN_FRONTEND noninteractive 
+ENV DEBIAN_FRONTEND noninteractive
 RUN dpkg-reconfigure dash
 
 #################################################################################
@@ -102,7 +102,6 @@ RUN pip install --upgrade pip \
 # get latest version of ASE
 RUN pip install git+https://gitlab.com/ase/ase
 
-
 # Keep the source for examples
 RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
  && cd /opt/matscipy \
@@ -115,7 +114,7 @@ RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
 
 # specify paths for Julia 1.4
 ENV JULIA_PATH /opt/julia/v1.4.1
-# PKG_DIR is now replaced with DEPOT_PATH 
+# PKG_DIR is now replaced with DEPOT_PATH
 ENV JULIA_DEPOT_PATH /opt/julia/share/site
 # Add to path as current version
 ENV PATH ${JULIA_PATH}/bin:$PATH
@@ -132,7 +131,7 @@ RUN mkdir /tmp/blas && \
     cp /tmp/blas/lib/libopenblas* ${JULIA_PATH}/lib/julia/ && \
     rm -r /tmp/blas
 
-# clone the JuLipAtoms environment and copy it into v1.4 to make it the 
+# clone the JuLipAtoms environment and copy it into v1.4 to make it the
 # default environment loaded at startup
 RUN mkdir -p ${JULIA_DEPOT_PATH}/environments \
  && cd ${JULIA_DEPOT_PATH}/environments \
@@ -145,5 +144,10 @@ RUN mkdir -p ${JULIA_DEPOT_PATH}/environments \
 # Relevant for Both Julia Environments:
 # Add kernelspecs to global Jupyter
 RUN mv /root/.local/share/jupyter/kernels/julia* /usr/local/share/jupyter/kernels/
+
+########################################################################################
+RUN pip install julia
+RUN python -c 'import julia; julia.install()'
+RUN pip install git+https://github.com/casv2/pyjulip.git
 
 CMD bash
