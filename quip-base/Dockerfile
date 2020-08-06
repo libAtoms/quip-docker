@@ -109,11 +109,11 @@ RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
 
 
 #################################################################################
-## Julia v1.4.x
+## Julia v1.5.0
 #################################################################################
 
-# specify paths for Julia 1.4
-ENV JULIA_PATH /opt/julia/v1.4.1
+# specify paths for Julia 1.5
+ENV JULIA_PATH /opt/julia/v1.5.0
 # PKG_DIR is now replaced with DEPOT_PATH
 ENV JULIA_DEPOT_PATH /opt/julia/share/site
 # Add to path as current version
@@ -135,6 +135,9 @@ RUN mkdir -p ${JULIA_DEPOT_PATH}/environments \
  && cp ./ACE_env/*.toml ./v1.5 \
  # this should download and build all packages
  && ${JULIA_PATH}/bin/julia -e 'using Pkg; Pkg.instantiate(); Pkg.API.precompile()'
+
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add Images"); using Images'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ImageMagick"); using ImageMagick'
 
 # Relevant for Both Julia Environments:
 # Add kernelspecs to global Jupyter
