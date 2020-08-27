@@ -30,6 +30,7 @@ RUN apt-get -y update \
         libblas-dev \
         libnetcdf-dev \
         netcdf-bin \
+        python-rdkit \
         # using libzmq3-dev instead of libzmq3, this one works
         libzmq3-dev \
         # Useful tools
