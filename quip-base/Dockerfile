@@ -95,6 +95,7 @@ RUN pip install --upgrade pip \
         nglview \
         RISE \
         pandas \
+        phonopy \
  && jupyter nbextension enable --py --sys-prefix widgetsnbextension \
  && jupyter nbextension enable --py --sys-prefix nglview \
  && jupyter-nbextension install rise --py --sys-prefix \
