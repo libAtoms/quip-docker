@@ -96,6 +96,8 @@ RUN pip install --upgrade pip \
         RISE \
         pandas \
         phonopy \
+        torch\
+        torchani\
  && jupyter nbextension enable --py --sys-prefix widgetsnbextension \
  && jupyter nbextension enable --py --sys-prefix nglview \
  && jupyter-nbextension install rise --py --sys-prefix \
