@@ -140,11 +140,6 @@ Singularity
 -----------
 
 [Singularity](http://singularity.lbl.gov) is a container ecosystem targeting
-scientific workflows on HPC. You can find the QUIP images on the
-[Singularity Hub](https://singularity-hub.org/collections/346/). These are
-identical to the Docker images.
-
-```
-singularity pull shub://libAtoms/QUIP
-```
+scientific workflows on HPC. You can convert the QUIP Docker images to
+Singularity (SingularityHub no longer kept updated).
 
