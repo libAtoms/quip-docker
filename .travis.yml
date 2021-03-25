@@ -24,8 +24,6 @@ jobs:
           branch: master
 
     - stage: build quip-gap
-      before_script:
-        - git clone --depth 1 git@github.com:libAtoms/GAP.git quip-gap/GAP
       script:
         - docker build -t libatomsquip/quip-gap:latest quip-gap
       deploy:
