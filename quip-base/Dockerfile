@@ -24,6 +24,7 @@ RUN apt-get -y update \
  && apt-get upgrade -y \
  && apt-get install -y \
         gfortran \
+        cmake \
         openmpi-bin \
         libopenmpi-dev \
         liblapack-dev \
@@ -84,6 +85,8 @@ RUN pip install --upgrade pip \
         jupyter \
         numpy \
         scipy \
+        scikit-learn\
+        scikit-build\
         matplotlib \
         pyamg \
         imolecule \
