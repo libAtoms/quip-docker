@@ -25,9 +25,8 @@ Docker
    ([alternative](https://store.docker.com/community/images/libatomsquip/quip))
    includes the base scientific stack and applications along with QUIP and
    quippy compiled with GAP support. Use of this image is restricted by a
-   non-commercial licence agreement so a user must accept when starting
-   a container. The license terms are added to $HOME once accepted and can
-   also be accessed on [GAP download page](http://www.libatoms.org/gap/gap_download.html).
+   non-commercial licence agreement. The license terms are in the [GAP repo](https://github.com/libAtoms/GAP).
+   
  
 
 The default command runs a Jupyter notebook server that can be used from
@@ -140,11 +139,6 @@ Singularity
 -----------
 
 [Singularity](http://singularity.lbl.gov) is a container ecosystem targeting
-scientific workflows on HPC. You can find the QUIP images on the
-[Singularity Hub](https://singularity-hub.org/collections/346/). These are
-identical to the Docker images.
-
-```
-singularity pull shub://libAtoms/QUIP
-```
+scientific workflows on HPC. You can convert the QUIP Docker images to
+Singularity (SingularityHub no longer kept updated).
 

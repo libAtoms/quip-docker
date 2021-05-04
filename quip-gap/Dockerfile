@@ -9,8 +9,6 @@ ENV PATH ${QUIP_INSTALLDIR}:${PATH}
 WORKDIR /opt/quip
 
 RUN git clone --depth 1 --recursive https://github.com/libAtoms/QUIP.git .
-ADD GAP src/GAP
-
 
 #################################################################################
 # Quip library for LAMMPS

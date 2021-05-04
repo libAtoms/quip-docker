@@ -24,12 +24,6 @@ jobs:
           branch: master
 
     - stage: build quip-gap
-      before_script:
-        - echo $github_deploy_key | base64 -d > ~/.ssh/github_deploy_key
-        - chmod 0600  ~/.ssh/github_deploy_key
-        - eval $(ssh-agent -s)
-        - ssh-add ~/.ssh/github_deploy_key
-        - git clone --depth 1 git@github.com:libAtoms/GAP.git quip-gap/GAP
       script:
         - docker build -t libatomsquip/quip-gap:latest quip-gap
       deploy:
