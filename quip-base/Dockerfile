@@ -116,8 +116,8 @@ RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
 ## Julia v1.5.0
 #################################################################################
 
-# specify paths for Julia 1.5
-ENV JULIA_PATH /opt/julia/v1.5.0
+# specify paths for Julia 1.6
+ENV JULIA_PATH /opt/julia/v1.6.1
 # PKG_DIR is now replaced with DEPOT_PATH
 ENV JULIA_DEPOT_PATH /opt/julia/share/site
 # Add to path as current version
@@ -125,21 +125,15 @@ ENV PATH ${JULIA_PATH}/bin:$PATH
 
 RUN mkdir -p ${JULIA_PATH} \
  && cd ${JULIA_PATH} \
- && curl --location "https://julialang-s3.julialang.org/bin/linux/x64/1.5/julia-1.5.0-linux-x86_64.tar.gz" | tar xz --strip-components 1
+ && curl --location "https://julialang-s3.julialang.org/bin/linux/x64/1.6/julia-1.6.1-linux-x86_64.tar.gz" | tar xz --strip-components 1
 
-# RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaMolSim/MolSim.git")'
-# RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaRegistries/General.git")'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaRegistries/General.git")'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaMolSim/MolSim.git")'
 
-# clone the JuLipAtoms environment and copy it into v1.4 to make it the
-# default environment loaded at startup
-# RUN mkdir -p ${JULIA_DEPOT_PATH}/environments \
-# && cd ${JULIA_DEPOT_PATH}/environments \
-# && git clone --depth 1 https://github.com/casv2/ACE_env.git \
-# && mkdir v1.5  \
-# && cp ./ACE_env/*.toml ./v1.5 \
- # this should download and build all packages
-# && ${JULIA_PATH}/bin/julia -e 'using Pkg; Pkg.instantiate(),  Pkg.API.precompile()'
-
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ACE"); using ACE'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add JuLIP"); using JuLIP'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ASE"); using ASE'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add IPFitting"); using IPFitting'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add IJulia"); using IJulia'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add Images"); using Images'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ImageMagick"); using ImageMagick'
