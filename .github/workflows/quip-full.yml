@@ -1,0 +1,22 @@
+name: Build quip-minimal Image
+
+on: [ push ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build quip-base
+      run: docker build --tag libatomsquip/quip-base:latest quip-base
+
+    - name: Build quip-gap
+      run: docker build --tag libatomsquip/quip-gap:latest quip-gap
+
+    - name: Build quip
+      run: docker build --tag libatomsquip/quip:latest quip
+
