@@ -17,7 +17,7 @@ jobs:
       run: docker pull libatomsquip/quip-minimal:latest || true
 
     - name: Build the Docker image
-      run: docker build --tag libatomsquip/quip-minimal:latest quip-minimal
+      run: docker build --tag libatomsquip/quip-minimal:latest --cache-from libatomsquip/quip-minimal quip-minimal
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
