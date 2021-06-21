@@ -56,3 +56,16 @@ RUN pip install git+https://gitlab.com/ase/ase
 RUN git clone https://github.com/libAtoms/matscipy.git /opt/matscipy \
  && cd /opt/matscipy \
  && pip install --no-cache-dir .
+
+
+#################################################################################
+## Entrypoint
+#################################################################################
+
+WORKDIR /root/
+
+# Set bash instead of sh as defualt terminal in Jupyter
+ENV SHELL /bin/bash
+
+CMD bash -c exit && jupyter notebook --ip=$(hostname -i) --port=8899 --allow-root
+EXPOSE 8899
