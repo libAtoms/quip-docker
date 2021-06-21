@@ -1,4 +1,4 @@
-name: Build quip-minimal Image
+name: Build full three stage QUIP image
 
 on: [ push ]
 
