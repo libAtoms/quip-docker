@@ -26,5 +26,5 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Push to Docker Hub
-      run: docker push libatomsquip/quip-base:latest
+      run: docker push libatomsquip/quip-minimal:latest
 
