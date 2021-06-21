@@ -133,7 +133,7 @@ RUN mkdir -p ${JULIA_PATH} \
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaRegistries/General.git")'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("registry add https://github.com/JuliaMolSim/MolSim.git")'
 
-RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ACE"); using ACE'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ACE@0.8.4"); using ACE'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add JuLIP"); using JuLIP'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ASE"); using ASE'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add IPFitting"); using IPFitting'
