@@ -29,10 +29,10 @@ jobs:
 
     - name: Build quip-gap
       run: |
-        docker build --tag libatomsquip/quip-gap:latest --cache-from libatomsquip/quip quip-base
+        docker build --tag libatomsquip/quip-gap:latest --cache-from libatomsquip/quip quip-gap
         docker push libatomsquip/quip-gap:latest
 
     - name: Build quip
       run: |
-        docker build --tag libatomsquip/quip:latest --cache-from libatomsquip/quip quip-base
+        docker build --tag libatomsquip/quip:latest --cache-from libatomsquip/quip quip
         docker push libatomsquip/quip:latest
