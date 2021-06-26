@@ -32,11 +32,9 @@ RUN make libquip > /dev/null \
 ENV QUIP_ARCH linux_x86_64_gfortran_openmp
 ADD Makefile.inc build/${QUIP_ARCH}/Makefile.inc
 
-RUN pip install src/f90wrap
-
 RUN make \
  && make install \
- && make install-quippy 
+ && make install-quippy
 
 
 #################################################################################
