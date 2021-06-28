@@ -140,6 +140,7 @@ RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add IPFitting"); using IPFitting'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add IJulia"); using IJulia'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add Images"); using Images'
 RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add ImageMagick"); using ImageMagick'
+RUN julia -e 'using Pkg;Pkg.REPLMode.pkgstr("add Plots"); using ImageMagick'
 
 # Relevant for Both Julia Environments:
 # Add kernelspecs to global Jupyter
